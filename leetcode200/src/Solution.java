@@ -1,4 +1,5 @@
 class Solution {
+    public static final int[] d = new int[] {1,0,-1,0,1};
     public int numIslands(char[][] grid) {
         int m = grid.length, n = grid[0].length;
         int res = 0;
@@ -16,9 +17,8 @@ class Solution {
     private void infect(char[][] grid, int i, int j) {
         if (i < 0 || i >= grid.length || j < 0 || j >= grid[0].length || grid[i][j] != '1') return;
         grid[i][j] = '2';
-        infect(grid,i-1,j);
-        infect(grid,i+1,j);
-        infect(grid,i,j-1);
-        infect(grid,i,j+1);
+        for (int k = 0; k < 4; k++) {
+            infect(grid,i+d[k],j+d[k+1]);
+        }
     }
 }

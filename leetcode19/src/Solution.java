@@ -1,5 +1,3 @@
-
-
 class ListNode {
      int val;
      ListNode next;
@@ -10,31 +8,18 @@ class ListNode {
 
 class Solution {
     public ListNode removeNthFromEnd(ListNode head, int n) {
-        if (head.next == null && n == 1) return null;
-        ListNode tail = head,cur = head;
-        int x = 1;//声明链表长度
-        while (tail.next != null) {
-            tail = tail.next;
-            x++;
+        ListNode dummy = new ListNode(0,head);
+        ListNode p = dummy, q = p.next;
+        //从虚拟头结点开始，找到间隔n个节点的两个节点，由于n<=sz，不必担心空指针
+        for (int i = 0; i < n; i++) {
+            q = q.next;
         }
-        if (n == 1) {
-            ListNode res = cur;
-            for (int i = 0; i < x - 2; i++) cur = cur.next;
-            cur.next = null;
-            return res;
+        //一直遍历到末尾，此时p指向的即是待删除的节点
+        while (q != null) {
+            p = p.next;
+            q = q.next;
         }
-        else if (n == x) {
-            ListNode res = cur.next;
-            cur.next = null;
-            return res;
-        }
-        else {
-            ListNode res = cur;
-            for (int i = 0; i < x - n - 1; i++) cur = cur.next;
-            cur.next = cur.next.next;
-            return res;
-        }
+        p.next = p.next.next;
+        return dummy.next;
     }
-
-
 }

@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 //贪心算法：如果当前和小于0，则丢弃之前的数列
 class Solution {
     public int maxSubArray(int[] nums) {

@@ -12,13 +12,7 @@ class Solution2 {
     }
 
     public ListNode mergeKLists(ListNode[] lists) {
-        PriorityQueue<ListNode> pq = new PriorityQueue<>(new Comparator<ListNode>() {
-            @Override
-            public int compare(ListNode o1, ListNode o2) {
-                //这里当o1的值小于o2的值时，返回值小于0，默认o2的权重大，所以排序为权重由小到大：o1->o2
-                return o1.val - o2.val;
-            }
-        });
+        PriorityQueue<ListNode> pq = new PriorityQueue<>(Comparator.comparingInt(o -> o.val));
 
         //跳过空链表，按照list.val由小到大添加到优先队列中
         for (ListNode list : lists) {
