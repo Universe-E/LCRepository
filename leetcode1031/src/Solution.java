@@ -19,3 +19,29 @@ class Solution {
         return max;
     }
 }
+
+class Solution {
+    public int maxSumTwoNoOverlap(int[] nums, int firstLen, int secondLen) {
+        return Math.max(help(nums,firstLen,secondLen),help(nums,secondLen,firstLen));
+    }
+
+    private int help(int[] nums, int firstLen, int secondLen) {
+        int sum1 = 0;
+        for (int i = 0; i < firstLen; i++) {
+            sum1 += nums[i];
+        }
+        int lMax = sum1;
+        int sum2 = 0;
+        for (int i = firstLen; i < firstLen + secondLen; i++) {
+            sum2 += nums[i];
+        }
+        int res = lMax + sum2;
+        for (int i = firstLen + secondLen,j = firstLen; i < nums.length; i++,j++) {
+            sum1 += nums[j] - nums[j-firstLen];
+            lMax = Math.max(lMax,sum1);
+            sum2 += nums[i] - nums[i-secondLen];
+            res = Math.max(res,lMax+sum2);
+        }
+        return res;
+    }
+}

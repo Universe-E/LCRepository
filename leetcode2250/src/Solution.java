@@ -19,17 +19,14 @@ class Solution {
             int xi = points[i][0],yi = points[i][1];
             for (int j = yi; j < 101; j++) {
                 if (xs[j].isEmpty()) continue;
-                //二分查找小于xi的最大索引
-                int yn = xs[j].size(), l = 0,r = yn-1;
-                if (xs[j].get(l) >= xi) cnt[i] += yn;
-                else {
-                    while (l < r) {
-                        int m = (l+r+1)/2;
-                        if (xs[j].get(m) >= xi) r = m-1;
-                        else l = m;
-                    }
-                    cnt[i] += yn - (l+1);
+                //二分查找大于等于xi的最小索引
+                int l = 0,r = xs[j].size()-1;
+                while (l < r) {
+                    int m = (l+r)/2;
+                    if (xs[j].get(m) >= xi) r = m;
+                    else l = m+1;
                 }
+                cnt[i] += xs[j].get(l) < xi ? 0 : (l+1);
             }
         }
         return cnt;
