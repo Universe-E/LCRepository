@@ -9,11 +9,10 @@ class ListNode {
 class Solution {
     public ListNode swapPairs(ListNode head) {
         if (head == null) return null;
-        //单数个尾结点不作任何交换，直接返回
         if (head.next == null) return head;
-        ListNode nextOne = head.next;
-        head.next = swapPairs(head.next.next);
-        nextOne.next = head;
-        return nextOne;
+        ListNode after = head.next;
+        head.next = swapPairs(after.next);
+        after.next = head;
+        return after;
     }
 }
