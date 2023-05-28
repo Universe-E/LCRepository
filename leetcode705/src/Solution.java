@@ -1,5 +1,7 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.Iterator;
 
 class MyHashSet {
 
@@ -33,5 +35,44 @@ class MyHashSet {
             else r = mid - 1;
         }
         return -1;
+    }
+}
+
+class MyHashSet {
+    private static final int M = 997;
+    ArrayList<Integer>[] data;
+    public MyHashSet() {
+        data = new ArrayList[M];
+        Arrays.setAll(data,e->new ArrayList<>());
+    }
+
+    public void add(int key) {
+        int h = hash(key);
+        for (Integer num : data[h]) {
+            if (num == key) return;
+        }
+        data[h].add(key);
+    }
+
+    public void remove(int key) {
+        int h = hash(key);
+        for (Integer num : data[h]) {
+            if (num == key) {
+                data[h].remove(num);
+                return;
+            }
+        }
+    }
+
+    public boolean contains(int key) {
+        int h = hash(key);
+        for (Integer num : data[h]) {
+            if (num == key) return true;
+        }
+        return false;
+    }
+
+    private int hash(int key) {
+        return key%M;
     }
 }
