@@ -32,3 +32,25 @@ class Solution {
         return l+1;
     }
 }
+
+class Solution {
+    public int maxValue(int n, int index, int maxSum) {
+        int l = 1,r = maxSum;
+        while (l < r) {
+            int m = (l+r+1)/2;
+            //满足隆起的条件
+            if (ok(n,index,maxSum,m)) l = m;
+            else r = m-1;
+        }
+        return l;
+    }
+
+    private boolean ok(int n,int index,int maxSum,int m) {
+        //单独讨论隆起部分：除却m左侧有ln项，右侧有rn项
+        int ln = (m-1) > index ? index : (m-2);
+        int rn = (m-1) > (n-index-1) ? (n-index-1) : (m-2);
+        //总和包括n,m,m左侧，m右侧
+        long total = n + m-1 + (long)(ln)*((long)2*m-ln-3)/2 + (long)(rn)*((long)2*m-rn-3)/2;
+        return total <= maxSum;
+    }
+}
