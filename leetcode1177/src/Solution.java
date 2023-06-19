@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 class Solution {
@@ -29,6 +31,29 @@ class Solution {
             }
             //注意！需要的个数是(odd / 2)，不是odd，因为一次修改对应少去两个奇数
             res.add(k >= odd / 2);
+        }
+        return res;
+    }
+}
+
+class Solution {
+    public List<Boolean> canMakePaliQueries(String s, int[][] queries) {
+        List<Boolean> res = new ArrayList<>();
+        int n = s.length();
+        int[] cnt = new int[n+1];
+        for (int i = 0; i < n; i++) {
+            //异或，如果为0则出现偶数次，为1出现奇数次
+            cnt[i+1] = cnt[i] ^ (1 << (s.charAt(i)-'a'));
+        }
+        for (int[] query : queries) {
+            int l = query[0],r = query[1],k = query[2];
+            int count = 0, bit = cnt[r+1] ^ cnt[l];
+            //计算bit中1的个数，即为出现奇数次字母的个数
+            while (bit != 0) {
+                bit &= (bit-1);
+                count++;
+            }
+            res.add(count <= 2*k+1);
         }
         return res;
     }
