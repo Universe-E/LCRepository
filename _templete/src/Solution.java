@@ -1,13 +1,69 @@
+import java.util.ArrayDeque;
 import java.util.Arrays;
 
 public class Solution {
-    int n,m;
     private static final int M = (int) 1e9+7;
     private static final int inf = 0x3f3f3f3f;
     //矩阵
+    int n,m;
     private static final int[] d = new int[] {1,0,-1,0,1};
+    private static final int[][] d2 = new int[][] {{1,0},{1,1},{0,1},{-1,1},{-1,0},{-1,-1},{0,-1},{1,-1}};
     private boolean inArea(int i,int j) {
         return i >= 0 && i < n && j >= 0 && j < m;
+    }
+    //floodfill计算总面积
+    private int fill(int[][] grid,int i, int j) {
+        var q = new ArrayDeque<int[]>();
+        q.addLast(new int[]{i,j});
+        int cnt = 1;
+        grid[i][j] = -1;
+        while (!q.isEmpty()) {
+            var c = q.pollFirst();
+            for (int k = 0; k < 8; k++) {
+                int cx = c[0]+d2[k][0],cy = c[1]+d2[k][1];
+                if (inArea(cx,cy) && grid[cx][cy] == 0) {
+                    q.addLast(new int[]{cx,cy});
+                    grid[cx][cy] = -1;
+                    cnt++;
+                }
+            }
+        }
+        return cnt;
+    }
+
+    //数位出现次数操作
+    int[] cnt = new int[32];
+    private void manage(int v,boolean isAdd) {
+        for (int i = 0; i < 32; i++) {
+            if ((v & (1<<i)) != 0) {
+                if (isAdd) cnt[i]++;
+                else cnt[i]--;
+            }
+        }
+    }
+
+    //找小于等于time的最大索引
+    private int bs_floor(int[][] logs,int time) {
+        int l = 0,r = n-1;
+        if (logs[l][1] > time) return -1;
+        while (l < r) {
+            int m = (l+r+1)/2;
+            if (logs[m][1] > time) r = m-1;
+            else l = m;
+        }
+        return l;
+    }
+
+    //找大于等于time的最小索引
+    private int bs_ceiling(int[][] logs,int time) {
+        int l = 0,r = n-1;
+        if (logs[r][1] < time) return -1;
+        while (l < r) {
+            int m = (l+r)/2;
+            if (logs[m][1] < time) l = m+1;
+            else r = m;
+        }
+        return l;
     }
 
     //并查集
@@ -43,7 +99,7 @@ public class Solution {
     }
 
     private int gcd(int a,int b) {
-        return b == 0 ? a : gcd(b,a%b);
+        return a%b == 0 ? b : gcd(b,a%b);
     }
 
     //快速幂
