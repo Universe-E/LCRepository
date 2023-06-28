@@ -1,22 +1,24 @@
 import java.util.*;
 
 public class Solution {
-
-    public String reverseVowels(String s) {
+    static Set<Character> vowelsSet = new HashSet<>();
+    static {
         char[] vowels = {'a','e','i','o','u','A','E','I','O','U'};
-        Set<Character> vowelsSet = new HashSet<>();
         for (char vowel : vowels) {
             vowelsSet.add(vowel);
         }
-        char[] temp = s.toCharArray();
+    }
+    public String reverseVowels(String s) {
+
+        char[] cs = s.toCharArray();
         int i = 0,j = s.length() - 1;
         while (i <= j) {
-            if (vowelsSet.contains(temp[i]) && !vowelsSet.contains(temp[j])) j--;
-            else if (!vowelsSet.contains(temp[i]) && vowelsSet.contains(temp[j])) i++;
-            else if (vowelsSet.contains(temp[i]) && vowelsSet.contains(temp[j])) {
-                char swap = temp[i];
-                temp[i] = temp[j];
-                temp[j] = swap;
+            if (vowelsSet.contains(cs[i]) && !vowelsSet.contains(cs[j])) j--;
+            else if (!vowelsSet.contains(cs[i]) && vowelsSet.contains(cs[j])) i++;
+            else if (vowelsSet.contains(cs[i]) && vowelsSet.contains(cs[j])) {
+                char swap = cs[i];
+                cs[i] = cs[j];
+                cs[j] = swap;
                 i++;
                 j--;
             }
@@ -25,11 +27,7 @@ public class Solution {
                 j--;
             }
         }
-        StringBuilder res = new StringBuilder();
-        for (char c : temp) {
-            res.append(c);
-        }
-        return res.toString();
+        return new String(cs);
     }
 
     public static void main(String[] args) {
