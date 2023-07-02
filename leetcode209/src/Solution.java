@@ -10,3 +10,18 @@ class Solution {
         return res==n+1 ? 0 : res;
     }
 }
+
+class Solution {
+    public int minSubArrayLen(int target, int[] nums) {
+        int n = nums.length,res = n+1;
+        for (int r = 0,l = 0,sum = 0; r < n; r++) {
+            sum += nums[r];
+            //尝试缩进l看是否仍符合条件
+            while (l <= r && sum-nums[l] >= target) {
+                sum -= nums[l++];
+                res = Math.min(res,r-l+1);
+            }
+        }
+        return res == n+1 ? 0 : res;
+    }
+}
