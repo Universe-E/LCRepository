@@ -19,3 +19,22 @@ class Solution {
         return res;
     }
 }
+
+class Solution {
+    public int maxConsecutiveAnswers(String answerKey, int k) {
+        int n = answerKey.length(),res = 0;
+        int[] cnt = new int[2];//store the count number of T and F
+        for (int r = 0,l = 0; r < n; r++) {
+            if (answerKey.charAt(r) == 'T') cnt[0]++;
+            else cnt[1]++;
+            //find the longest valid subarray
+            while (l < r && Math.min(cnt[0],cnt[1]) > k) {
+                if (answerKey.charAt(l) == 'T') cnt[0]--;
+                else cnt[1]--;
+                l++;
+            }
+            res = Math.max(res,r-l+1);
+        }
+        return res;
+    }
+}

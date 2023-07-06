@@ -14,11 +14,7 @@ public class Solution2 {
             while (l < r) {
                 int sum = nums[i] + nums[l] + nums[r];
                 if (sum == 0) {
-                    List<Integer> cur = new ArrayList<>();
-                    cur.add(nums[i]);
-                    cur.add(nums[l]);
-                    cur.add(nums[r]);
-                    res.add(cur);
+                    res.add(List.of(nums[i],nums[l],nums[r]));
                     while (l < r && nums[l] == nums[l+1]) l++;
                     while (l < r && nums[r-1] == nums[r]) r--;
                     //每次找到符合条件的l和r之后，只单独改变l和r肯定无法得到有效答案

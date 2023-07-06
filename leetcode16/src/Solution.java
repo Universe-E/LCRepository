@@ -26,3 +26,23 @@ public class Solution {
         System.out.println(res);
     }
 }
+
+public class Solution {
+    public int threeSumClosest(int[] nums, int target) {
+        Arrays.sort(nums);
+        int n = nums.length;
+        int sum = nums[0]+nums[1]+nums[n-1];
+        for (int i = 0; i < n; i++) {
+            int j = i+1,k = n-1;
+            while (j < k) {
+                int cur = nums[i]+nums[j]+nums[k];
+                int d1 = Math.abs(cur-target),d2 = Math.abs(sum-target);
+                if (d1 < d2) sum = cur;//renew sum
+                if (cur == target) return cur;
+                else if (cur < target) j++;
+                else k--;
+            }
+        }
+        return sum;
+    }
+}
