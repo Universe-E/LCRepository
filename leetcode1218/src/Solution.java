@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.HashSet;
 
 class Solution {
     public int longestSubsequence(int[] arr, int difference) {
@@ -10,5 +11,18 @@ class Solution {
             max = Math.max(max, map.get(num));
         }
         return max;
+    }
+}
+class Solution {
+    public int longestSubsequence(int[] arr, int difference) {
+        int res = 1;
+        var map = new HashMap<Integer,Integer>();
+        for (int num : arr) {
+            int pre = num - difference;
+            if (map.containsKey(pre)) map.put(num, map.get(pre) + 1);
+            else map.put(num, 1);
+            res = Math.max(res, map.get(num));
+        }
+        return res;
     }
 }
