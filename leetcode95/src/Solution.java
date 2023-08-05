@@ -62,3 +62,33 @@ class Solution {
         }
     }
 }
+
+class Solution {
+    public List<TreeNode> generateTrees(int n) {
+        return generate(1,n);
+    }
+
+    private List<TreeNode> generate(int l, int r) {
+        List<TreeNode> res = new ArrayList<>();
+        if (l > r) {
+            res.add(null);
+            return res;
+        }
+        if (l == r) {
+            res.add(new TreeNode(l));
+            return res;
+        }
+        for (int i = l; i <= r; i++) {
+            List<TreeNode> ls = generate(l,i-1),rs = generate(i+1,r);
+            for (TreeNode lt : ls) {
+                for (TreeNode rt : rs) {
+                    TreeNode cur = new TreeNode(i);
+                    cur.left = lt;
+                    cur.right = rt;
+                    res.add(cur);
+                }
+            }
+        }
+        return res;
+    }
+}
