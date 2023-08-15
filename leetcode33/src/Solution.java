@@ -5,7 +5,7 @@ class Solution {
         while (l0 < r0) {
             int m = (l0+r0)/2;
             if (nums[m] < nums[r0]) r0 = m;
-            else if (nums[m] >= nums[l0]) l0 = m+1;
+            else l0 = m+1;
         }
         int diff = l0,l1 = 0,r1 = n-1;
         while (l1 <= r1) {
