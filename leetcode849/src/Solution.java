@@ -18,3 +18,19 @@ class Solution {
         return res;
     }
 }
+
+class Solution {
+    public int maxDistToClosest(int[] seats) {
+        int n = seats.length,l = 0;
+        while (l < n && seats[l] == 0) l++;
+        int res = l;
+        while (l < n) {
+            int r = l+1;
+            while (r < n && seats[r] == 0) r++;
+            if (r == n) res = Math.max(res,n-l-1);
+            else res = Math.max(res,(r-l)/2);
+            l = r;
+        }
+        return res;
+    }
+}
