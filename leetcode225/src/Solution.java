@@ -1,26 +1,31 @@
 import java.util.ArrayDeque;
 
 class MyStack {
-    ArrayDeque<Integer> deque1,deque2;
+    ArrayDeque<Integer> q1, q2;
     public MyStack() {
-        deque1 = new ArrayDeque<>();
-        deque2 = new ArrayDeque<>();
+        q1 = new ArrayDeque<>();
+        q2 = new ArrayDeque<>();
     }
 
     public void push(int x) {
-        deque1.push(x);
+        q1.addFirst(x);
     }
 
     public int pop() {
-        return deque1.pop();
+        while (q1.size() > 1) q2.addFirst(q1.pollLast());
+        int res = q1.pollLast();
+        ArrayDeque<Integer> t = q1;
+        q1 = q2;
+        q2 = t;
+        return res;
     }
 
     public int top() {
-        return deque1.peek();
+        return q1.peek();
     }
 
     public boolean empty() {
-        return deque1.isEmpty();
+        return q1.isEmpty();
     }
 }
 

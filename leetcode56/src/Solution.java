@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 class Solution {
     public int[][] merge(int[][] intervals) {
@@ -19,6 +16,28 @@ class Solution {
         }
         int[][] res = new int[list.size()][];
         for (int i = 0; i < res.length; i++) res[i] = list.get(i);
+        return res;
+    }
+}
+
+class Solution {
+    public int[][] merge(int[][] intervals) {
+        ArrayList<int[]> list = new ArrayList<>();
+        int l = -1,r = -1;
+        Arrays.sort(intervals,Comparator.comparingInt(o -> o[0]));
+        for (int[] interval : intervals) {
+            if (interval[0] <= r) r = Math.max(r, interval[1]);
+            else {
+                list.add(new int[]{l, r});
+                l = interval[0];
+                r = interval[1];
+            }
+        }
+        if (l > list.get(list.size()-1)[1]) list.add(new int[] {l,r});
+        int[][] res = new int[list.size()-1][];
+        for (int i = 1; i < list.size(); i++) {
+            res[i-1] = list.get(i);
+        }
         return res;
     }
 }

@@ -21,3 +21,16 @@ class Solution {
         return res;
     }
 }
+class Solution {
+    public int findLongestChain(int[][] pairs) {
+        int n = pairs.length,tail = -1001,res = 0;
+        Arrays.sort(pairs,Comparator.comparingInt(o -> o[1]));
+        for (int i = 0; i < n; i++) {
+            if (pairs[i][0] > tail) {
+                res++;
+                tail = pairs[i][1];
+            }
+        }
+        return res;
+    }
+}
