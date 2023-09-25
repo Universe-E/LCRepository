@@ -23,7 +23,7 @@ class Solution {
         int[] l = dfs(root.left);
         int[] r = dfs(root.right);
         int[] res = new int[2];
-        //如果偷当前节点，则只能取l[1]和r[1]
+        //如果偷当前节点，则只能取l[1]和r[1]，代表下面的2个节点不能偷
         res[0] = root.val + l[1] + r[1];
         //如果不偷当前节点，那么0和1都可以选
         res[1] = Math.max(l[0],l[1]) + Math.max(r[0],r[1]);

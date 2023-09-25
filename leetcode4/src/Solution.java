@@ -57,3 +57,35 @@ public class Solution {
         System.out.println(new Solution().findMedianSortedArrays(num1,num2));
     }
 }
+
+public class Solution {
+    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        int[] arr = new int[nums1.length + nums2.length];
+        System.arraycopy(nums1, 0, arr, 0, nums1.length);
+        System.arraycopy(nums2, 0, arr, nums1.length, nums2.length);
+        int[] temp = Arrays.copyOf(arr, arr.length);
+        mergeSort(arr,0,arr.length - 1,temp);
+        if (arr.length % 2 == 0) return (arr[arr.length / 2] + arr[(arr.length - 1) / 2]) / 2.0;
+        else return arr[arr.length / 2];
+    }
+
+    private void mergeSort(int[] arr, int l, int r, int[] temp) {
+        if (l >= r) return;
+        int m = (l+r)/2;
+        mergeSort(arr,l,m,temp);
+        mergeSort(arr,m+1,r,temp);
+        if (arr[m] > arr[m+1]) merge(arr,l,m,r,temp);
+    }
+
+    private void merge(int[] arr,int l,int m,int r,int[] temp) {
+        System.arraycopy(arr,l,temp,l,r-l+1);
+        int i = l,j = m+1;
+        for (int k = l; k <= r; k++) {
+            if (i > m) arr[k] = temp[j++];
+            else if (j > r) arr[k] = temp[i++];
+            else if (temp[i] < temp[j]) arr[k] = temp[i++];
+            else arr[k] = temp[j++];
+        }
+    }
+}
+
