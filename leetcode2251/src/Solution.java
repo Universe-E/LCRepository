@@ -12,7 +12,6 @@ class Solution {
             map.put(flower[1] + 1,map.getOrDefault(flower[1] + 1,0) - 1);
         }
         int[] times = map.keySet().stream().mapToInt(Integer::intValue).toArray();
-        System.out.println(Arrays.toString(times));
         //将persons的id按照到达时间排序
         Integer[] idx = new Integer[n];
         for (int i = 0; i < n; i++) {

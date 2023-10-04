@@ -19,7 +19,7 @@ class Solution {
     }
 }
 
-class Solution2 {
+class Solution {
     public int maxProfit(int[] prices) {
         int n = prices.length;
         //dp[i]有3种状态：1、此时未持有股票，什么都不做（可以是冷冻期，也可以不是）；2、此时已持有股票，什么都不做；3、当日卖出
@@ -35,5 +35,19 @@ class Solution2 {
         }
         //最后一天肯定不可能再买股票，因此从0,2里面取最大值
         return Math.max(dp[n-1][0],dp[n-1][2]);
+    }
+}
+
+class Solution {
+    public int maxProfit(int[] prices) {
+        int n = prices.length;
+        int[][] dp = new int[n][2];
+        dp[0][1] = -prices[0];
+        for (int i = 1; i < n; i++) {
+            dp[i][0] = Math.max(dp[i-1][0],dp[i-1][1] + prices[i]);
+            //含冷冻期，从前2天开始状态转移即可
+            dp[i][1] = Math.max(dp[i-1][1],(i > 1 ? dp[i-2][0] : dp[i-1][0])-prices[i]);
+        }
+        return dp[n-1][0];
     }
 }

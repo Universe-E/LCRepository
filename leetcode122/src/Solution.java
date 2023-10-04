@@ -32,7 +32,7 @@ class Solution {
         return res;
     }
 }
-class Solution2 {
+class Solution {
     //贪心算法，直接相加递增区间
     public int maxProfit(int[] prices) {
         int res = 0;
@@ -40,5 +40,22 @@ class Solution2 {
             res += Math.max(0,prices[i] - prices[i - 1]);
         }
         return res;
+    }
+}
+
+class Solution {
+    public int maxProfit(int[] prices) {
+        int n = prices.length;
+        int[][] dp = new int[n][2];
+        //0代表不持有股票，1代表持有股票
+        dp[0][0] = 0;
+        dp[0][1] = -prices[0];
+        for (int i = 1; i < n; i++) {
+            //如果第i天继续不持有股票
+            dp[i][0] = Math.max(dp[i-1][0],dp[i-1][1] + prices[i]);
+            //如果第i天继续持有股票
+            dp[i][1] = Math.max(dp[i-1][1],dp[i-1][0] - prices[i]);
+        }
+        return dp[n-1][0];
     }
 }
