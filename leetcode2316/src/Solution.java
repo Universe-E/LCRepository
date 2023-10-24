@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 class Solution {
     int[] p;
     public long countPairs(int n, int[][] edges) {
@@ -15,7 +13,6 @@ class Solution {
         for (int i = 0; i < n; i++) {
             cnt[find(i)]++;
         }
-        System.out.println(Arrays.toString(cnt));
         long res = 0;
         for (int i = 0; i < n; i++) {
             res += (n-cnt[find(i)]);
