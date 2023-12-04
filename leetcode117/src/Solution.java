@@ -1,3 +1,4 @@
+import java.util.ArrayDeque;
 
 class Node {
     public int val;
@@ -48,6 +49,26 @@ class Solution {
         //注意！要先递归构建右子树，如果先递归左子树，右侧的next没有建立完整，导致中间断线
         connect(root.right);
         connect(root.left);
+        return root;
+    }
+}
+class Solution {
+    public Node connect(Node root) {
+        if (root == null) return null;
+        var q = new ArrayDeque<Node>();
+        q.addLast(root);
+        while (!q.isEmpty()) {
+            int sz = q.size();
+            Node pre = null;
+            for (int i = 0; i < sz; i++) {
+                Node cur = q.pollFirst();
+                assert cur != null;
+                if (cur.left != null) q.addLast(cur.left);
+                if (cur.right != null) q.addLast(cur.right);
+                if (pre != null) pre.next = cur;
+                pre = cur;
+            }
+        }
         return root;
     }
 }

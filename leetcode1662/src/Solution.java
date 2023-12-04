@@ -7,6 +7,6 @@ class Solution {
         for (String s : word2) {
             sb2.append(s);
         }
-        return sb1.toString().equals(sb2.toString());
+        return sb1.toString().contentEquals(sb2);
     }
 }

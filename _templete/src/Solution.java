@@ -52,6 +52,35 @@ public class Solution {
         }
     }
 
+    class Trie{
+        boolean isWord;//当前位置是否是word
+        int preIdx;//当前位置归属于words[preIdx]的前缀，初始为-1
+        Trie[] children;
+        public Trie(){
+            this.isWord = false;
+            this.preIdx = -1;
+            this.children = new Trie[26];
+        }
+        public void add(String word,int idx){
+            Trie cur = this;
+            for (int i = 0; i < word.length(); i++) {
+                int cid = word.charAt(i)-'a';
+                if(cur.children[cid] == null) cur.children[cid] = new Trie();
+                cur = cur.children[cid];
+                cur.preIdx = idx;
+            }
+            cur.isWord = true;
+        }
+        public boolean findIsWord(String word) {
+            Trie cur = this;
+            for (int i = 0; i < word.length(); i++) {
+                int cid = word.charAt(i)-'a';
+                if(cur.children[cid] == null) return false;
+                cur = children[cid];
+            }
+            return cur.isWord;
+        }
+    }
 
 
     //数位出现次数操作
