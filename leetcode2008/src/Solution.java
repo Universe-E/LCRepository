@@ -23,3 +23,27 @@ class Solution {
         return dp[len-1];
     }
 }
+
+class Solution {
+    public long maxTaxiEarnings(int n, int[][] rides) {
+        //按照下车地点排序
+        Arrays.sort(rides, Comparator.comparingInt(o -> o[1]));
+        long[] dp = new long[n+1];
+        int end = 0;
+        for (int[] ride : rides) {
+            while (end <= n && end < ride[1]) {
+                end++;
+                if (end <= n) dp[end] = dp[end - 1];
+            }
+            if (end == ride[1]) {
+                int start = ride[0], money = end - start + ride[2];
+                dp[end] = Math.max(dp[end], dp[start] + money);
+            }
+        }
+        while (end <= n) {
+            end++;
+            if (end <= n) dp[end] = dp[end - 1];
+        }
+        return dp[n];
+    }
+}

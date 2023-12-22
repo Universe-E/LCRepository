@@ -17,3 +17,20 @@ class Solution {
         System.out.println(new Solution().maxScore(s));
     }
 }
+class Solution {
+    public int maxScore(String s) {
+        int n = s.length(),cnt0 = 0,cnt1 = 0;
+        for (int i = 0; i < n; i++) {
+            char c = s.charAt(i);
+            if (c == '1') cnt1++;
+        }
+        int res = 0;
+        for (int i = 0; i < n - 1; i++) {
+            char c = s.charAt(i);
+            if (c == '0') cnt0++;
+            else cnt1--;
+            res = Math.max(res,cnt0+cnt1);
+        }
+        return res;
+    }
+}
