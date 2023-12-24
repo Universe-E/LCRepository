@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 class Solution {
     public int maxScore(String s) {
         int max = 0;
