@@ -14,18 +14,21 @@ class Solution {
         for (int i = 1; i < n; i++) {
             int[] cur = arr[i];
             int s = cur[0],p = cur[2];
-            //找到与[s,e]区间无交叉的最近一个dp[j]，记为sump
-            //由于已经按结束时间排序，此前所有结束时间不大于e
-            int sump = 0;
-            for (int j = i-1; j >= 0; j--) {
-                if (arr[j][1] <= s) {
-                    sump = dp[j];
-                    break;
-                }
-            }
-            //如果把当前任务添加进列表：总利润为sump+p，如果不添加进列表，总利润为dp[i-1]
-            dp[i] = Math.max(dp[i-1],sump+p);
+            //找到与[s,e]区间无交叉的最近一个dp[lastEnd]，如果没有符合条件的（即lastEnd=-1)，则值为0
+            int lastEnd = bs(arr,s,i);
+            dp[i] = Math.max(dp[i-1],(lastEnd == -1 ? 0 : dp[lastEnd])+p);
         }
         return dp[n-1];
+    }
+
+    private int bs(int[][] arr, int start, int i) {
+        int l = 0,r = i-1;
+        if (arr[l][1] > start) return -1;
+        while (l < r) {
+            int m = (l+r+1)/2;
+            if (arr[m][1] <= start) l = m;
+            else r = m-1;
+        }
+        return l;
     }
 }
