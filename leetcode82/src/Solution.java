@@ -1,3 +1,5 @@
+import java.util.HashMap;
+
 class ListNode {
     int val;
     ListNode next;
@@ -28,5 +30,27 @@ class Solution {
             }
         }
         return dummy.next;
+    }
+}
+
+class Solution {
+    HashMap<Integer,Integer> map = new HashMap<>();
+    public ListNode deleteDuplicates(ListNode head) {
+        ListNode cur = head;
+        while (cur != null) {
+            map.put(cur.val,map.getOrDefault(cur.val,0)+1);
+            cur = cur.next;
+        }
+        return delete(head);
+    }
+    private ListNode delete(ListNode head) {
+        while (head != null && map.getOrDefault(head.val,0) > 1) {
+            head = head.next;
+        }
+        if (head == null) return null;
+        else {
+            head.next = delete(head.next);
+            return head;
+        }
     }
 }
