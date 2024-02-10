@@ -34,7 +34,7 @@ class Solution2 {
         if (root == null) return null;
         if (root.val == p.val || root.val == q.val) return root;
         TreeNode l = lowestCommonAncestor(root.left, p,q);
-        TreeNode r = lowestCommonAncestor(root.right, p, q);
+        TreeNode r = lowestCommonAncestor(root.right, p,q);
         //左侧没有目标值
         if (l == null) return r;
         //右侧没有目标值
