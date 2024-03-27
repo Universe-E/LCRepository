@@ -10,24 +10,23 @@ class Solution {
     }
 }
 
-class Solution2 {
+class Solution {
     public int[] sortedSquares(int[] nums) {
-        int l = 0;
-        int r = nums.length - 1;
-        int[] res = new int[nums.length];
-        int j = nums.length - 1;
+        int n = nums.length,l = 0,r = n - 1;
+        int[] res = new int[n];
+        int j = n - 1;
         //由于nums已经排序，故平方后结果直接左右比较，将较大者从右至左放入res数组中
         while (l <= r) {
-            if (nums[l] * nums[l] > nums[r] * nums[r]) {
-                res[j] = nums[l] * nums[l];
+            int l2 = nums[l] * nums[l],r2 = nums[r] * nums[r];
+            if (l2 > r2) {
+                res[j] = l2;
                 l++;
-                j--;
             }
             else {
-                res[j] = nums[r] * nums[r];
+                res[j] = r2;
                 r--;
-                j--;
             }
+            j--;
         }
         return res;
     }

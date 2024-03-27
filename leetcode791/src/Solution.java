@@ -24,3 +24,23 @@ class Solution {
         return sb.toString();
     }
 }
+
+class Solution {
+    public String customSortString(String order, String s) {
+        HashMap<Character,Integer> map = new HashMap<>();
+        for (char c : s.toCharArray()) {
+            map.put(c,map.getOrDefault(c,0)+1);
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < order.length(); i++) {
+            char o = order.charAt(i);
+            while (map.containsKey(o) && map.put(o, map.get(o)-1) > 0) {
+                sb.append(o);
+            }
+        }
+        for (Character c : map.keySet()) {
+            sb.append(String.valueOf(c).repeat(Math.max(0, map.get(c))));
+        }
+        return sb.toString();
+    }
+}

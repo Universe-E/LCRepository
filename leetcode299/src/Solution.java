@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 
 class Solution {
@@ -32,5 +33,24 @@ class Solution {
 
     public static void main(String[] args) {
         System.out.println(new Solution().getHint("11123","11123"));
+    }
+}
+
+class Solution {
+    public String getHint(String secret, String guess) {
+        int n = secret.length();
+        int[] sc = new int[10],gc = new int[10];
+        int a = 0,b = 0;
+        for (int i = 0; i < n; i++) {
+            if (secret.charAt(i) == guess.charAt(i)) a++;
+            else {
+                sc[secret.charAt(i)-'0']++;
+                gc[guess.charAt(i)-'0']++;
+            }
+        }
+        for (int i = 0; i < 10; i++) {
+            b += Math.min(sc[i],gc[i]);
+        }
+        return a+"A"+b+"B";
     }
 }

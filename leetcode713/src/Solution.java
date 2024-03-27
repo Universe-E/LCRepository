@@ -15,3 +15,16 @@ class Solution {
         return res;
     }
 }
+class Solution {
+    public int numSubarrayProductLessThanK(int[] nums, int k) {
+        int n = nums.length,l = 0,res = 0;
+        if(k == 0) return 0;
+        long mul = 1;
+        for(int r = 0;r < n; r++) {
+            mul *= nums[r];
+            while(l < r && mul >= k) mul /= nums[l++];
+            if(mul < k) res += r-l+1;
+        }
+        return res;
+    }
+}
