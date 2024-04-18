@@ -29,3 +29,21 @@ class Solution {
         return root.left == null && root.right == null;
     }
 }
+
+class Solution {
+    private int res;
+    public int sumOfLeftLeaves(TreeNode root) {
+        dfs(root);
+        return res;
+    }
+
+    private void dfs(TreeNode root) {
+        if (root == null) return;
+        if (root.left != null) {
+            if (root.left.left == null && root.left.right == null) res += root.left.val;
+            dfs(root.left);
+        }
+        if (root.right != null) dfs(root.right);
+    }
+
+}
