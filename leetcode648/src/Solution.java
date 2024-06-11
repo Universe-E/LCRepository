@@ -42,3 +42,29 @@ class Solution {
         return word;
     }
 }
+class Solution {
+    public String replaceWords(List<String> dictionary, String sentence) {
+        StringBuilder sb = new StringBuilder();
+        String[] words = sentence.split(" ");
+        for (String word : words) {
+            sb.append(manage(word,dictionary));
+            sb.append(" ");
+        }
+        sb.deleteCharAt(sb.length()-1);
+        return sb.toString();
+    }
+
+    private String manage(String word, List<String> dictionary) {
+        int len = word.length();
+        String res = word;
+        for (String s : dictionary) {
+            if (word.startsWith(s)) {
+                if (s.length() < len) {
+                    len = s.length();
+                    res = s;
+                }
+            }
+        }
+        return res;
+    }
+}
