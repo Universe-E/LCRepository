@@ -32,3 +32,32 @@ class Solution {
         return res;
     }
 }
+
+
+class Solution {
+    public int calPoints(String[] ops) {
+        int res = 0;
+        ArrayDeque<Integer> q = new ArrayDeque<>();
+        for (String op : ops) {
+            switch (op) {
+                case "D" -> {
+                    int top = q.peekLast();
+                    q.addLast(2 * top);
+                }
+                case "C" -> q.pollLast();
+                case "+" -> {
+                    int temp = q.peekLast();
+                    q.pollLast();
+                    int temp2 = q.peekLast();
+                    q.addLast(temp);
+                    q.addLast(temp + temp2);
+                }
+                default -> q.addLast(Integer.valueOf(op));
+            }
+        }
+        while (!q.isEmpty()) {
+            res += q.pollLast();
+        }
+        return res;
+    }
+}
